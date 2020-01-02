@@ -34,13 +34,19 @@
     "prettier": "^1.19.1"
   },
   "dependencies": {
+    "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",
+    "@types/express-useragent": "^1.0.0",
     "@types/node": "^13.1.2",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "detect-browser": "^4.8.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-useragent": "^1.0.13",
     "pusher": "^3.0.0",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "uuid": "^3.3.3"
   }
 }

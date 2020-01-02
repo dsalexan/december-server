@@ -1,3 +1,5 @@
+import Pusher = require('pusher')
+
 export {}
 
 declare global {
@@ -9,6 +11,10 @@ declare global {
       PUSHER_APP_KEY: string
       PUSHER_SECRET: string
       CLUSTER: string
+    }
+
+    interface Global {
+      pusher: Pusher
     }
   }
 }
