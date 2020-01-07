@@ -1,4 +1,5 @@
 import Pusher = require('pusher')
+import pgp from 'pg-promise'
 
 export {}
 
@@ -14,7 +15,8 @@ declare global {
     }
 
     interface Global {
-      pusher: Pusher
+      pusher: (event: string, from: string, data: any, path?: string[]) => string
+      connection: pgp.IDatabase<any>
     }
   }
 }
