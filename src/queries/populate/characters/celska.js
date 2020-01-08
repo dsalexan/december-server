@@ -103,4 +103,16 @@ export default {
   feat: ['{@feat sentinel}'],
   // tags
   languageTags: ['C', 'BR', 'S'],
+  // fluff
+  _fluff: {
+    images: [
+      {
+        href: {
+          path: 'celska.jpg',
+          type: 'custom',
+        },
+        type: 'image',
+      },
+    ],
+  },
 }

@@ -90,4 +90,16 @@ export default {
   // TODO: Infernal Legacy
   // tags
   languageTags: ['C', 'E', 'I'],
+  // fluff
+  _fluff: {
+    images: [
+      {
+        href: {
+          path: 'vithor.png',
+          type: 'custom',
+        },
+        type: 'image',
+      },
+    ],
+  },
 }

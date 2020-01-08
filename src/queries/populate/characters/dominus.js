@@ -98,4 +98,17 @@ export default {
   // tags
   languageTags: ['C', 'E'],
   spellcastingTags: ['CL'],
+  // fluff
+  _fluff: {
+    images: [
+      {
+        href: {
+          path: 'dominus.jpg',
+          type: 'custom',
+        },
+        crop: { size: 611.7711700038844, width: 1920, height: 2787, x: 780.7405745710216, y: 49.04959579595759 },
+        type: 'image',
+      },
+    ],
+  },
 }

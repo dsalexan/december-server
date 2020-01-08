@@ -1,32 +1,31 @@
 export default {
-  _id: 'b-branahammerrein-fcs',
-  name: 'Brana Hammerrein',
-  shortName: 'Brana',
+  _id: 'dawnbringer-helena-fcs',
+  name: 'Helena',
   source: 'Fendas',
   type: {
     type: 'humanoid',
-    tags: ['dwarf', 'hill dwarf'],
+    tags: ['half-elf'],
   },
   background: {
-    name: 'Blacksmith',
-    source: 'Fendas',
+    name: 'Knight of the Order',
+    source: 'SCAG',
   },
   level: [
     {
-      level: 5,
-      takenAt: [1, 2, 3, 4, 5],
+      level: 9,
+      takenAt: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       class: {
-        name: 'Cleric',
+        name: 'Paladin',
       },
       subclass: {
-        name: 'War Domain',
+        name: 'Oath of the Crown',
         source: 'PHB',
       },
     },
   ],
   isNpc: false,
-  page: 18,
-  size: 'S',
+  page: 21,
+  size: 'M',
   alignment: ['L', 'G'],
   ac: [
     {
@@ -43,38 +42,39 @@ export default {
     },
   ],
   hp: {
-    rolls: [8, 4, 3, 8, 5], // 28
-    bonus: [10, 5], // CON * 5, DWARVEN RESILIENCE
+    // 89
+    rolls: [10, 8, 10, 2, 10, 6, 10, 8, 7], // 71
+    bonus: [18], // CON * 9
   },
   speed: {
-    walk: 25,
+    walk: 30,
   },
-  str: 12,
-  dex: 13,
-  con: 15, // +2 [1]
-  int: 15,
-  wis: 17, // +1 [1]
-  cha: 12,
+  str: 15, // +1 [1]
+  dex: 11,
+  con: 14,
+  int: 10,
+  wis: 11, // +1 [1]
+  cha: 18, // +2 [1]
   save: {
     wis: true,
     cha: true,
   },
   skill: {
-    acrobatics: true,
+    acrobatics: false,
     'animal handling': false,
     arcana: false,
-    athletics: false,
+    athletics: true,
     deception: false,
     history: false,
     insight: true,
     intimidation: false,
-    investigation: false,
-    medicine: true,
+    investigation: true,
+    medicine: false,
     nature: false,
-    perception: false,
+    perception: true,
     performance: false,
-    persuasion: false,
-    religion: false,
+    persuasion: true,
+    religion: true,
     'sleight of hand': false,
     stealth: false,
     survival: false,
@@ -88,30 +88,19 @@ export default {
   ],
   passive: 13,
   proficiencies: {
-    armor: ['light', 'medium', 'shields', 'heavy'],
+    armor: ['light', 'medium', 'heavy', 'shields'],
     weapons: ['simple', 'martial'],
-    tools: ["{@item smith's tools|PHB}", "{@item tinker's tools|PHB}"],
+    tools: ['musical instrument'],
   },
-  languages: ['Common', 'Dwarvish'],
+  languages: ['Common', 'Elvish', 'Celestial', 'Sylvan'],
+  feat: ['{@feat war caster}'],
   spellcasting: [
     {
       name: 'Spellcasting',
-      ability: 'wis',
+      ability: 'cha',
     },
   ],
   // tags
   languageTags: ['C', 'D'],
-  spellcastingTags: ['CC'],
-  // fluff
-  _fluff: {
-    images: [
-      {
-        href: {
-          path: 'brana.jpg',
-          type: 'custom',
-        },
-        type: 'image',
-      },
-    ],
-  },
+  spellcastingTags: ['CP'],
 }

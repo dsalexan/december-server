@@ -50,10 +50,13 @@ export default {
     rolls: [8, 3, 6, 4, 5], // 30
   },
   speed: {
-    walk: 25,
+    walk: {
+      number: 25,
+      condition: 'fae form',
+    },
     fly: {
       number: 50,
-      condition: 'no armor',
+      condition: 'fae form, no armor',
     },
     alternate: {
       walk: [
@@ -137,4 +140,23 @@ export default {
   // tags
   languageTags: ['C', 'E', 'S'],
   spellcastingTags: ['CB'],
+  // fluff
+  _fluff: {
+    images: [
+      {
+        href: {
+          path: 'lyra.jpg',
+          type: 'custom',
+        },
+        type: 'image',
+      },
+      {
+        href: {
+          path: 'lyra_fae.jpg',
+          type: 'custom',
+        },
+        type: 'image',
+      },
+    ],
+  },
 }

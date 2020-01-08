@@ -20,7 +20,7 @@ export default {
         source: 'PHB',
       },
       subclass: {
-        name: 'Evocation',
+        name: 'School of Evocation',
         source: 'PHB',
       },
     },
@@ -106,4 +106,16 @@ export default {
   // tags
   languageTags: ['C', 'E', 'S', 'DR'],
   spellcastingTags: ['CL', 'CW'],
+  // fluff
+  _fluff: {
+    images: [
+      {
+        href: {
+          path: 'medan.jpg',
+          type: 'custom',
+        },
+        type: 'image',
+      },
+    ],
+  },
 }
