@@ -28,21 +28,30 @@ app.use((req, res, next) => {
   next()
 })
 
-import { users, trackers, characters } from './routes'
+import { users, tracker, characters } from './routes'
 import { populate } from './queries'
 
+app.get('/status', (req, res) => {
+  res.send('DECEMBER (SERVER) ONLINE')
+})
+
 app.use('/users', users)
-app.use('/trackers', trackers)
+app.use('/tracker', tracker)
 app.use('/characters', characters)
 
 app.get('/database/populate', async (req, res) => {
-  const onlyUsers = req.query.onlyUsers
-  const onlyCharacters = req.query.onlyCharacters
+  const soft = req.query.soft === undefined ? true : req.query.soft && req.query.soft.toLowerCase() !== 'false'
 
-  const selective = onlyUsers || onlyCharacters
+  const onlyUsers = req.query.onlyUsers && req.query.onlyUsers.toLowerCase() !== 'false'
+  const onlyCharacters = req.query.onlyCharacters && req.query.onlyCharacters.toLowerCase() !== 'false'
+  const onlyTrackers = req.query.onlyTrackers && req.query.onlyTrackers.toLowerCase() !== 'false'
 
-  if (!selective || onlyUsers) await populate.users()
-  if (!selective || onlyCharacters) await populate.characters()
+  const selective = onlyUsers || onlyCharacters || onlyTrackers
+
+  if (!selective || onlyUsers) await populate.users(soft)
+  if (!selective || onlyCharacters) await populate.characters(soft)
+  if (!selective || onlyTrackers) await populate.trackers(soft)
+
   res.status(200).json({
     success: true,
     message: 'Database populated',
@@ -50,6 +59,6 @@ app.get('/database/populate', async (req, res) => {
 })
 
 const port = 5000
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   info(`Listening on port ${port}`)
 })

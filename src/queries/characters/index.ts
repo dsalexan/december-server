@@ -11,10 +11,8 @@ export default function makeCharactersAdapter(
   all: () => Promise<[Record<string, any>]>
   exists: (id: string) => Promise<boolean>
   byId: (name: string) => Promise<Record<string, any>>
-  statusById: (name: string) => Promise<string>
-  permissionsById: (id: string) => Promise<any>
-  insert: (id: string, name: string, source: string, characterData: any) => Promise<boolean>
-  updateById: (id: string, name: string, source: string, characterData: any) => Promise<boolean>
+  insert: (id: string, name: string, source: string, characterData: any, permission?: string | null) => Promise<boolean>
+  updateById: (id: string, name: string, source: string, characterData: any, permission?: string) => Promise<boolean>
   removeById: (id: string) => Promise<boolean>
 }> {
   function all(): Promise<[Record<string, any>]> {
@@ -33,7 +31,13 @@ export default function makeCharactersAdapter(
     return result[0]
   }
 
-  async function insert(id: string, name: string, source: string, characterData: any): Promise<boolean> {
+  async function insert(
+    id: string,
+    name: string,
+    source: string,
+    characterData: any,
+    permission: string | null = null,
+  ): Promise<boolean> {
     info('Insert character', id)
     const characterExists = await exists(id)
     if (characterExists) {
@@ -42,11 +46,12 @@ export default function makeCharactersAdapter(
     }
 
     await connection.query(
-      'INSERT INTO characters VALUES (${id}, ${__created_at}, ${__modified_at}, ${name}, ${source}, ${data})',
+      'INSERT INTO characters VALUES (${id}, ${__created_at}, ${__modified_at}, ${permission}, ${name}, ${source}, ${data})',
       {
         id,
         name,
         source,
+        permission,
         __created_at: new Date(),
         __modified_at: new Date(),
         data: characterData,
@@ -55,7 +60,13 @@ export default function makeCharactersAdapter(
     return true
   }
 
-  async function updateById(id: string, name: string, source: string, characterData: any): Promise<boolean> {
+  async function updateById(
+    id: string,
+    name: string,
+    source: string,
+    characterData: any,
+    permission = null,
+  ): Promise<boolean> {
     info('Update character by id', id)
     const characterExists = await exists(id)
     if (!characterExists) {
@@ -64,12 +75,13 @@ export default function makeCharactersAdapter(
     }
 
     await connection.query(
-      'UPDATE characters SET __modified_at = ${__modified_at}, name = ${name}, source = ${source}, data = ${data} WHERE _id = ${id}',
+      'UPDATE characters SET __modified_at = ${__modified_at}, name = ${name}, source = ${source}, permission = ${permission}, data = ${data} WHERE _id = ${id}',
       {
         id,
         name,
         source,
         __modified_at: new Date(),
+        permission,
         data: characterData,
       },
     )

@@ -15,7 +15,7 @@ declare global {
     }
 
     interface Global {
-      pusher: (event: string, from: string, data: any, path?: string[]) => string
+      pusher: (event: string, from: string, data: any, path?: string[], user?: string) => string
       connection: pgp.IDatabase<any>
     }
   }

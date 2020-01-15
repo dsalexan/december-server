@@ -6,6 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "serve": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "expose": "lt --port 5000 --subdomain december",
     "build": "tsc && node ./build/index.js",
     "lint": "eslint",
     "db:populate": "node ./database/populate.js"
@@ -54,6 +55,7 @@
     "pg-promise": "^10.3.2",
     "pusher": "^3.0.0",
     "pusher-js": "^5.0.3",
+    "supports-color": "^7.1.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.7.4",
     "uuid": "^3.3.3"

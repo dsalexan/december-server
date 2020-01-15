@@ -21,11 +21,11 @@ if (global.pusher === undefined) {
   //   console.log('DISCONNECTION', context, data)
   // })
 
-  global.pusher = (event: string, from: string, data: any, path: string[] = []): string => {
+  global.pusher = (event: string, from: string, data: any, path: string[] = [], user = 'guest'): string => {
     const hash = uuid().substr(0, 13)
 
-    not(`Triggered event (${hash})`, event, 'at path', path, 'from', from)
-    pusher.trigger('december', event, { hash, from, path, data })
+    not(`Triggered event (${hash})`, event, 'at path', path, 'from', from, 'user', user)
+    pusher.trigger('december', event, { event, hash, from, path, data, user })
 
     return hash
   }

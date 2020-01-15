@@ -99,6 +99,7 @@ export default {
       ability: 'wis',
     },
   ],
+  feats: ['{@feat alert}'],
   // tags
   languageTags: ['C', 'D'],
   spellcastingTags: ['CC'],

@@ -64,6 +64,7 @@ router.get('/:player/status', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
   const player = req.body.player
   const _id = player
+  const auth = req.headers.authorization
 
   if (await users.exists(_id)) {
     return res.status(409).json({
@@ -91,8 +92,8 @@ router.post('/', async (req: Request, res: Response) => {
 
   USERS_ONLINE_CONTROL[_id] = undefined
 
-  const hash = pusher('user:added', `${req.method} ${req.originalUrl}`, { user: USERS[_id] })
-  const hash2 = pusher('user:updated', `${req.method} ${req.originalUrl}`, { user: USERS[_id] })
+  const hash = pusher('user:added', `${req.method} ${req.originalUrl}`, { user: USERS[_id] }, [], auth)
+  const hash2 = pusher('user:updated', `${req.method} ${req.originalUrl}`, { user: USERS[_id] }, [], auth)
 
   res.status(201).json({
     success: true,
@@ -103,6 +104,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.put('/:player/status', async (req: Request, res: Response) => {
   const player = req.params.player
   const status = req.query.status
+  const auth = req.headers.authorization
 
   const new_session = {
     useragent: req.useragent,
@@ -128,9 +130,13 @@ router.put('/:player/status', async (req: Request, res: Response) => {
         // TODO: Split in domain logic to be able to call changeStatus here
         users.updateStatusById(player, 'offline')
 
-        pusher(`user:updated`, 'server idle timeout', { user: player, status: 'offline', last_session: new_session }, [
-          'status',
-        ])
+        pusher(
+          `user:updated`,
+          'server idle timeout',
+          { action: 'signout', user: player, status: 'offline', last_session: new_session },
+          ['status'],
+          'server',
+        )
       }, 6 * 60 * 1000)
     } else if (status === 'offline') {
       await users.updateStatusById(player, status)
@@ -145,8 +151,9 @@ router.put('/:player/status', async (req: Request, res: Response) => {
       const hash = pusher(
         `user:updated`,
         `${req.method} ${req.originalUrl}`,
-        { user: player, status, last_session: new_session },
+        { action: `sign${status === 'online' ? 'in' : 'out'}`, user: player, status, last_session: new_session },
         ['status'],
+        auth,
       )
       res.status(200).json({
         success: true,
@@ -169,6 +176,7 @@ router.put('/:player/status', async (req: Request, res: Response) => {
 router.put('/:player/permissions', async (req: Request, res: Response) => {
   const player = req.params.player
   const permissions = req.body.permissions
+  const auth = req.headers.authorization
 
   if (await users.exists(player)) {
     const oldPermissions = await users.permissionsById(player)
@@ -176,9 +184,13 @@ router.put('/:player/permissions', async (req: Request, res: Response) => {
     if (!_.isEqual(oldPermissions, permissions)) {
       await users.updatePermissionsById(player, permissions)
 
-      const hash = pusher(`user:updated`, `${req.method} ${req.originalUrl}`, { user: player, permissions }, [
-        'permissions',
-      ])
+      const hash = pusher(
+        `user:updated`,
+        `${req.method} ${req.originalUrl}`,
+        { action: 'permission', user: player, permissions },
+        ['permissions'],
+        auth,
+      )
 
       res.status(200).json({
         success: true,

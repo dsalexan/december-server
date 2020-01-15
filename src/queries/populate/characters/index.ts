@@ -6,6 +6,7 @@ import celska from './celska'
 import medan from './medan'
 import vi from './vi'
 import helena from './helena'
+import isabel from './isabel'
 
 export default [
   luke,
@@ -17,6 +18,8 @@ export default [
   celska,
   medan,
   vi,
+  // WHITEWATER
+  isabel,
   {
     _id: 'avirivrani-a32fg--fcs',
     name: 'Avir Yvrani',

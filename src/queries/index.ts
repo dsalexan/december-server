@@ -9,7 +9,7 @@ export const populate = makePopulate(global.connection)
 
 export const users = makeUsersAdapter(global.connection)
 export const characters = makeCharactersAdapter(global.connection)
-export const trackers = makeTrackersAdapter(global.connection)
+export const trackers = makeTrackersAdapter(global.connection, characters)
 
 export default {
   users,
