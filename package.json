@@ -51,7 +51,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-useragent": "^1.0.13",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pg-promise": "^10.3.2",
     "pusher": "^3.0.0",
     "pusher-js": "^5.0.3",
